@@ -91,7 +91,7 @@
         { id: 3, name: '元元 山田', title: '經理', bio: '專長：與雷射共舞', avatar: './img/user.png' },
         { id: 4, name: '林風', title: '員工', bio: '專長：專業導遊。', avatar: './img/user.png' },
         { id: 5, name: '亨特 布洛德', title: '員工', bio: '專長：開車!跟開車~', avatar: './img/user.png' },
-        { id: 6, name: '澄奈 佐藤', title: '員工', bio: '專長：追趕跑跳碰。', avatar: './img/user.png' },
+        { id: 6, name: '澄奈 佐藤', title: '員工', bio: '專長：追趕跑跳碰。', avatar: './img/team3.jpg' },
         { id: 7, name: '德納森 埃里希', title: '工讀生', bio: '專長：隱身術。', avatar: './img/user.png' },
         { id: 8, name: '哈維 哈特曼', title: '工讀生', bio: '專長：打擊麵團、打擊犯罪。', avatar: './img/team5.jpg' },
         { id: 9, name: '籃莠寧', title: '工讀生', bio: '專長：尋寶。', avatar: './img/user.png' },
@@ -139,7 +139,7 @@
           <router-link class="hover:text-orange-600" to="/menu">菜單</router-link>
           <router-link class="hover:text-orange-600" to="/team">團隊</router-link>
           <router-link class="hover:text-orange-600" to="/contact">聯絡資訊</router-link>
-          <a href="#" @click.prevent="$emit('open-modal')" class="hover:text-orange-600">方花咖啡廳</a>
+          <a href="https://xiang1224.github.io/floral-motif/#/" class="hover:text-orange-600">方花咖啡廳</a>
         </nav>
       </div>
     </div>
@@ -181,7 +181,7 @@
     <div>
       <h4 class="font-semibold mb-2">夥伴</h4>
       <p>本餐廳與 
-        <a href="#" @click.prevent="$emit('open-modal')" class="underline hover:text-orange-600">方花咖啡廳</a> 
+        <a href="https://xiang1224.github.io/floral-motif/#/" class="hover:text-orange-600">方花咖啡廳</a> 
         合作，提供跨店優惠。
       </p>
       <p class="mt-2">© {{ year }} {{ chinesename }}. 版權所有。</p>
@@ -192,21 +192,6 @@
     props: ['name', 'chinesename', 'address', 'hotline', 'hours', 'darkMode']
   };
 
-  const ComingSoonModal = {
-    template: `
-  <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 max-w-sm text-center">
-      <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">敬請期待</h2>
-      <p class="mt-2 text-gray-600 dark:text-gray-300">此功能尚未開放，敬請期待！</p>
-      <button @click="$emit('close')" 
-        class="mt-4 px-4 py-2 rounded-xl bg-orange-500 text-white hover:bg-orange-600 transition">
-        關閉
-      </button>
-    </div>
-  </div>
-  `,
-    props: ['show']
-  };
 
   const Home = {
     props: ['data', 'darkMode'],
@@ -594,13 +579,9 @@
         @open-modal="modalOpen = true"/>
 <router-view :darkMode="darkMode"></router-view>
 <SiteFooter :name="siteData.name" :address="siteData.address" :hotline="siteData.hotline" :hours="siteData.hours" :darkMode="darkMode" :chinesename="siteData.chinesename" @open-modal="modalOpen = true"/>
-<ComingSoonModal
-        :show="modalOpen"
-        @close="modalOpen = false"
-      />
-</div>
+
 `,
-    components: { NavBar, SiteFooter, ComingSoonModal }
+    components: { NavBar, SiteFooter}
   });
 
 
