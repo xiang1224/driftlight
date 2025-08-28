@@ -113,35 +113,51 @@
 
   const NavBar = {
     template: `
-<header
-  :class="darkMode
-    ? 'bg-[#221e1d] text-white'
-    : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'"
-  class="sticky top-0 z-50 backdrop-blur border-b border-gray-200 dark:border-gray-700 transition-colors duration-500">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <router-link to="/" class="flex items-center gap-2 group">
-        <img src="./img/LOGO.png"
+<div>
+  <!-- Header -->
+  <header
+    :class="darkMode
+      ? 'bg-[#221e1d] text-white'
+      : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'"
+    class="sticky top-0 z-50 backdrop-blur border-b border-gray-200 dark:border-gray-700 transition-colors duration-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- LOGO -->
+        <router-link to="/" class="flex items-center gap-2 group">
+          <img 
+            :src="darkMode ? './img/LOGO-DARK.png' : './img/LOGO-DAY.png'"
             alt="朝酩餐廳 Logo"
-            class="h-10 w-10 rounded-2xl object-cover"/>
-        <span class="text-lg sm:text-xl font-bold tracking-tight group-hover:text-orange-600 transition-colors">{{ siteName }}</span>
-      </router-link>  
-      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-        <router-link class="hover:text-orange-600" to="/menu">菜單</router-link>
-        <router-link class="hover:text-orange-600" to="/team">團隊</router-link>
-        <router-link class="hover:text-orange-600" to="/contact">聯絡資訊</router-link>
-        <!-- 改成 Modal -->
-        <a href="#" @click.prevent="$emit('open-modal')" class="hover:text-orange-600">方花咖啡廳</a>
-      </nav>
-      <button @click="$emit('toggle-mode')" class="px-3 py-1 rounded-xl border hover:border-orange-500 transition-colors duration-500">
-        {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
-      </button>
+            class="h-12 rounded-2xl object-cover"
+          />
+          <span class="text-lg sm:text-xl font-bold tracking-tight group-hover:text-orange-600 transition-colors">
+            {{ siteName }}
+          </span>
+        </router-link>  
+
+        <!-- Nav 靠右 -->
+        <nav class="flex items-center gap-6 text-sm font-medium ml-auto">
+          <router-link class="hover:text-orange-600" to="/menu">菜單</router-link>
+          <router-link class="hover:text-orange-600" to="/team">團隊</router-link>
+          <router-link class="hover:text-orange-600" to="/contact">聯絡資訊</router-link>
+          <a href="#" @click.prevent="$emit('open-modal')" class="hover:text-orange-600">方花咖啡廳</a>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+
+  <!-- 浮動切換按鈕 -->
+  <button 
+    @click="$emit('toggle-mode')" 
+    class="fixed bottom-4 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border 
+           bg-orange-500 text-white font-bold hover:bg-orange-600 transition transform hover:scale-110">
+    {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
+  </button>
+</div>
   `,
     props: ['siteName', 'darkMode']
   };
+
+
 
   const SiteFooter = {
     data() { return { year: new Date().getFullYear() } },
@@ -149,8 +165,9 @@
 <footer
   :class="darkMode
     ? 'bg-[#221e1d] text-white'
-    : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid sm:grid-cols-2 gap-8 text-sm">
+    : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'" class="sticky top-0 z-50 backdrop-blur border-t border-gray-200 dark:border-gray-700 transition-colors duration-500">
+    
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid sm:grid-cols-2 gap-8 text-sm ">
     <div>
       <h3 class="font-semibold mb-2">{{ chinesename }}</h3>
       <p>{{ address }}</p>
@@ -218,12 +235,12 @@
   <section :class="darkMode
     ? 'bg-[#221e1d]'
     : 'bg-gradient-to-r from-orange-100 via-white to-orange-50'">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-3xl font-bold text-center mb-10"
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-0">
+      <h2 class="text-3xl font-bold text-center mb-5"
           :class="darkMode ? 'text-white' : 'text-gray-900'">
         用餐環境
       </h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-10">
         <figure v-for="g in (darkMode ? data.galleryNight : data.galleryDay)" 
                 :key="g.id"
                 class="relative overflow-hidden rounded-2xl shadow-xl group transform hover:-translate-y-1 transition-all duration-500 cursor-pointer"
@@ -474,14 +491,14 @@
   :class="[
     'mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20',
     darkMode
-      ? 'bg-gradient-to-b from-gray-950 via-purple-950 to-black'
+      ? 'bg-[#221e1d]'
       : 'bg-gradient-to-b from-orange-50 via-orange-100 to-white'
   ]"
 >
   <!-- 聯絡資訊 -->
   <section
     class="rounded-2xl p-10 shadow-lg backdrop-blur-sm"
-    :class="darkMode ? 'bg-purple-900/40 border border-purple-700' : 'bg-white/90 border border-orange-200'"
+    :class="darkMode ? 'bg-[#272221] border border-[#413e3d]' : 'bg-white/90 border border-orange-200'"
   >
     <h1
       class="text-3xl font-bold mb-6 border-b pb-4"
@@ -510,7 +527,7 @@
   <!-- 餐廳內規 -->
   <section
     class="rounded-2xl p-10 shadow-lg backdrop-blur-sm"
-    :class="darkMode ? 'bg-purple-900/40 border border-purple-700' : 'bg-white/90 border border-orange-200'"
+    :class="darkMode ? 'bg-[#272221] border border-[#413e3d]' : 'bg-white/90 border border-orange-200'"
   >
     <h2
       class="text-3xl font-bold text-center mb-8"
@@ -534,7 +551,7 @@
   <!-- 地圖截圖 -->
   <section
     class="rounded-2xl p-10 shadow-lg backdrop-blur-sm text-center"
-    :class="darkMode ? 'bg-purple-900/40 border border-purple-700' : 'bg-white/90 border border-orange-200'"
+    :class="darkMode ? 'bg-[#272221] border border-[#413e3d]' : 'bg-white/90 border border-orange-200'"
   >
     <h2
       class="text-3xl font-bold mb-8"
