@@ -32,7 +32,7 @@
     const siteData = {
       name: 'DRIFTLIGHT',
       chinesename: '朝酩',
-      partner: '芳花咖啡廳',
+      partner: '方花咖啡廳',
       hotline: '70060700、30127189、40118049',
       address: '威斯普奇海灘 征服者街',
       hours: '營業時間｜請關注羽毛',
@@ -85,15 +85,15 @@
         ]
       },
       team: [
-        { id: 1, name: '閔允書', title: '店長', bio: '專長：法式與義式料理，注重食材原味呈現。', avatar: './img/user.png' },
-        { id: 2, name: '閔允熙', title: '副店長', bio: '專長：歐陸與日式甜點，風格細膩優雅。', avatar: './img/user.png' },
-        { id: 3, name: '元元 山田', title: '經理', bio: '專長：法式與義式料理，注重食材原味呈現。', avatar: './img/user.png' },
-        { id: 4, name: '林風', title: '員工', bio: '專長：歐陸與日式甜點，風格細膩優雅。', avatar: './img/user.png' },
-        { id: 5, name: '亨特 布洛德', title: '員工', bio: '專長：法式與義式料理，注重食材原味呈現。', avatar: './img/user.png' },
-        { id: 6, name: '澄奈 佐藤', title: '員工', bio: '專長：歐陸與日式甜點，風格細膩優雅。', avatar: './img/user.png' },
-        { id: 7, name: '德納森 埃里希', title: '工讀生', bio: '專長：歐陸與日式甜點，風格細膩優雅。', avatar: './img/user.png' },
-        { id: 8, name: '哈維 哈特曼', title: '工讀生', bio: '專長：歐陸與日式甜點，風格細膩優雅。', avatar: './img/user.png' },
-        { id: 9, name: '籃莠寧', title: '工讀生', bio: '專長：歐陸與日式甜點，風格細膩優雅。', avatar: './img/user.png' },
+        { id: 1, name: '閔允書', title: '店長', bio: '專長：哭沒有用。', avatar: './img/boss.png' },
+        { id: 2, name: '閔允熙', title: '副店長', bio: '專長：哭很有用。', avatar: './img/boss1.png' },
+        { id: 3, name: '元元 山田', title: '經理', bio: '專長：與雷射共舞', avatar: './img/user.png' },
+        { id: 4, name: '林風', title: '員工', bio: '專長：專業導遊。', avatar: './img/user.png' },
+        { id: 5, name: '亨特 布洛德', title: '員工', bio: '專長：開車!跟開車~', avatar: './img/user.png' },
+        { id: 6, name: '澄奈 佐藤', title: '員工', bio: '專長：追趕跑跳碰。', avatar: './img/user.png' },
+        { id: 7, name: '德納森 埃里希', title: '工讀生', bio: '專長：隱身術。', avatar: './img/user.png' },
+        { id: 8, name: '哈維 哈特曼', title: '工讀生', bio: '專長：打擊麵團、打擊犯罪。', avatar: './img/team5.jpg' },
+        { id: 9, name: '籃莠寧', title: '工讀生', bio: '專長：尋寶。', avatar: './img/user.png' },
       ],
       galleryDay: [
         { id: 201, img: './img/morning4.png', caption: '大門的華麗序章' },
@@ -114,7 +114,7 @@
     template: `
 <header
   :class="darkMode
-    ? 'bg-gradient-to-r from-indigo-900 bg-gradient-to-b from-purple-800 via-purple-700 to-purple-900 text-red-200'
+    ? 'bg-[#221e1d] text-white'
     : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'"
   class="sticky top-0 z-50 backdrop-blur border-b border-gray-200 dark:border-gray-700 transition-colors duration-500">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -130,7 +130,7 @@
         <router-link class="hover:text-orange-600" to="/team">團隊</router-link>
         <router-link class="hover:text-orange-600" to="/contact">聯絡資訊</router-link>
         <!-- 改成 Modal -->
-        <a href="#" @click.prevent="$emit('open-modal')" class="hover:text-orange-600">芳花咖啡廳</a>
+        <a href="#" @click.prevent="$emit('open-modal')" class="hover:text-orange-600">方花咖啡廳</a>
       </nav>
       <button @click="$emit('toggle-mode')" class="px-3 py-1 rounded-xl border hover:border-orange-500 transition-colors duration-500">
         {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
@@ -147,14 +147,14 @@
     template: `
 <footer
   :class="darkMode
-    ? 'bg-gradient-to-r from-indigo-900 bg-gradient-to-b from-purple-800 via-purple-700 to-purple-900 text-red-200'
+    ? 'bg-[#221e1d] text-white'
     : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid sm:grid-cols-2 gap-8 text-sm">
     <div>
       <h3 class="font-semibold mb-2">{{ chinesename }}</h3>
       <p>{{ address }}</p>
       <p class="mt-1">訂餐專線：
-        <span class="underline text-gray-500 hover:text-gray-500">
+        <span class="underline text-yellow">
   {{ hotline }}
 </span>
       </p>
@@ -163,7 +163,7 @@
     <div>
       <h4 class="font-semibold mb-2">夥伴</h4>
       <p>本餐廳與 
-        <a href="#" @click.prevent="$emit('open-modal')" class="underline hover:text-orange-600">芳花咖啡廳</a> 
+        <a href="#" @click.prevent="$emit('open-modal')" class="underline hover:text-orange-600">方花咖啡廳</a> 
         合作，提供跨店優惠。
       </p>
       <p class="mt-2">© {{ year }} {{ chinesename }}. 版權所有。</p>
@@ -199,11 +199,11 @@
 <main>
   <!-- Hero 區 -->
   <section :class="darkMode 
-    ? 'bg-gradient-to-r from-gray-800 via-purple-900 to-black'
+    ? 'bg-[#221e1d]'
     : 'bg-gradient-to-r from-orange-100 via-white to-orange-50'">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
       <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight"
-          :class="darkMode ? 'text-red-200' : 'text-gray-900'">
+          :class="darkMode ? 'text-white' : 'text-gray-900'">
         歡迎來到 {{ data.name }}
       </h1>
       <p class="mt-6 max-w-2xl mx-auto text-lg"
@@ -215,11 +215,11 @@
 
   <!-- 用餐環境 -->
   <section :class="darkMode
-    ? 'bg-gradient-to-r from-gray-800 via-purple-900 to-black'
+    ? 'bg-[#221e1d]'
     : 'bg-gradient-to-r from-orange-100 via-white to-orange-50'">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h2 class="text-3xl font-bold text-center mb-10"
-          :class="darkMode ? 'text-red-200' : 'text-gray-900'">
+          :class="darkMode ? 'text-white' : 'text-gray-900'">
         用餐環境
       </h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -256,7 +256,7 @@
   :class="[
     ' mx-auto px-4 sm:px-6 lg:px-8 py-8',
     darkMode
-      ? 'bg-gradient-to-b from-gray-800 via-purple-900 to-black'
+      ? 'bg-[#221e1d]'
       : 'bg-gradient-to-b from-orange-50 via-orange-25 to-white'
   ]">
 <div v-if="!darkMode" class="p-5 rounded-2xl">
@@ -331,10 +331,10 @@
       <article
         v-for="m in data.menuNight.hot"
         :key="m.id"
-        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-gradient-to-b from-purple-900/40 via-purple-800/30 to-purple-900/50 border border-purple-700 flex flex-col"
+        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
       >
         <!-- 圖片區塊 -->
-        <div class="flex-shrink-0 h-32 w-full p-2 bg-purple-950/20 flex items-center justify-center">
+        <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
           <img :src="m.icon" alt="" class="h-full object-contain">
         </div>
         <!-- 文字區塊 -->
@@ -356,9 +356,9 @@
       <article
         v-for="m in data.menuNight.soft"
         :key="m.id"
-        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-gradient-to-b from-blue-900/40 via-blue-800/30 to-blue-900/50 border border-blue-700 flex flex-col"
+        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
       >
-        <div class="flex-shrink-0 h-32 w-full p-2 bg-blue-950/20 flex items-center justify-center">
+        <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
           <img :src="m.icon" alt="" class="h-full object-contain">
         </div>
         <div class="p-4 flex-1 flex flex-col justify-between">
@@ -379,9 +379,9 @@
       <article
         v-for="m in data.menuNight.alcohol"
         :key="m.id"
-        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-gradient-to-b from-red-900/40 via-red-800/30 to-red-900/50 border border-red-700 flex flex-col"
+        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
       >
-        <div class="flex-shrink-0 h-32 w-full p-2 bg-red-950/20 flex items-center justify-center">
+        <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
           <img :src="m.icon" alt="" class="h-full object-contain">
         </div>
         <div class="p-4 flex-1 flex flex-col justify-between">
@@ -408,7 +408,7 @@
   :class="[
     'mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20',
     darkMode
-      ? 'bg-gradient-to-b from-gray-950 via-purple-950 to-black'
+      ? 'bg-[#221e1d]'
       : 'bg-gradient-to-b from-orange-50 via-orange-100 to-white'
   ]"
 >
@@ -426,7 +426,7 @@
       v-for="t in data.team"
       :key="t.id"
       class="rounded-2xl overflow-hidden shadow-xl transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
-      :class="darkMode ? 'bg-purple-900/40 border border-purple-700' : 'bg-white/90 border border-orange-200'"
+      :class="darkMode ? 'bg-[#272221] border border-[#413e3d]' : 'bg-white/90 border border-orange-200'"
     >
       <!-- 頭像 -->
       <div class="flex justify-center mt-8">
