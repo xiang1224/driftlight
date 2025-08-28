@@ -147,12 +147,18 @@
   </header>
 
   <!-- 浮動切換按鈕 -->
-  <button 
-    @click="$emit('toggle-mode')" 
-    class="fixed bottom-4 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border 
-           bg-orange-500 text-white font-bold hover:bg-orange-600 transition transform hover:scale-110">
-    {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
-  </button>
+<button
+  @click="$emit('toggle-mode')"
+  :class="[
+    'fixed bottom-4 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border font-bold hover:scale-110 transition transform',
+    darkMode
+      ? 'bg-[#221e1d] border border-[#413e3d] text-white hover:bg-gray-800'
+      : 'bg-yellow-100 text-black hover:bg-yellow-300'
+  ]"
+>
+  {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
+</button>
+
 </div>
   `,
     props: ['siteName', 'darkMode']
@@ -252,158 +258,173 @@
   };
 
 
-
-    const Menu = {
-      props: ['data', 'darkMode'],
-      template: `
+  const Menu = {
+    props: ['data', 'darkMode'],
+    data() {
+      return {
+        showExtraImage: false // 控制額外圖片顯示
+      }
+    },
+    template: `
 <main
   :class="[
-    ' mx-auto px-4 sm:px-6 lg:px-8 py-8',
-    darkMode
-      ? 'bg-[#221e1d]'
-      : 'bg-gradient-to-b from-orange-50 via-orange-25 to-white'
-  ]">
-<div v-if="!darkMode" class="p-5 rounded-2xl">
-  <h1 class="text-2xl font-bold mb-6 text-center">日間菜單</h1>
+    'mx-auto px-4 sm:px-6 lg:px-8 py-8 relative',
+    darkMode ? 'bg-[#221e1d]' : 'bg-gradient-to-b from-orange-50 via-orange-25 to-white'
+  ]"
+>
 
-  <!-- 主食 -->
-  <h2 class="text-xl font-semibold mb-4">主食</h2>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-    <article v-for="m in data.menuDay.main" :key="m.id"
-             class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-b from-orange-50 via-white to-orange-100 border border-gray-200 flex flex-col">
-      <!-- 圖片區塊 -->
-      <div class="flex-shrink-0 h-32 w-full p-2 bg-white flex items-center justify-center">
-        <img :src="m.icon" alt="" class="h-full object-contain">
-      </div>
-      <!-- 文字區塊 -->
-      <div class="p-4 flex-1 flex flex-col justify-between">
-        <h3 class="font-semibold text-lg flex justify-between items-center">
-          <span>{{ m.name }}</span>
-          <span class="text-sm text-gray-500">{{ m.price }}</span>
-        </h3>
-        <p class="text-sm text-gray-600 mt-2">{{ m.desc }}</p>
-      </div>
-    </article>
-  </div>
+  <!-- 日間菜單 -->
+  <div v-if="!darkMode" class="p-5 rounded-2xl">
+    <h1 class="text-2xl font-bold mb-6 text-center">日間菜單</h1>
 
-  <!-- 點心 -->
-  <h2 class="text-xl font-semibold mb-4">點心</h2>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-    <article v-for="m in data.menuDay.dessert" :key="m.id"
-             class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-b from-pink-50 via-white to-pink-100 border border-gray-200 flex flex-col">
-      <div class="flex-shrink-0 h-32 w-full p-2 bg-white flex items-center justify-center">
-        <img :src="m.icon" alt="" class="h-full object-contain">
-      </div>
-      <div class="p-4 flex-1 flex flex-col justify-between">
-        <h3 class="font-semibold text-lg flex justify-between items-center">
-          <span>{{ m.name }}</span>
-          <span class="text-sm text-gray-500">{{ m.price }}</span>
-        </h3>
-        <p class="text-sm text-gray-600 mt-2">{{ m.desc }}</p>
-      </div>
-    </article>
-  </div>
-
-  <!-- 飲品 -->
-  <h2 class="text-xl font-semibold mb-4">飲品</h2>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <article v-for="m in data.menuDay.drinks" :key="m.id"
-             class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-b from-blue-50 via-white to-blue-100 border border-gray-200 flex flex-col">
-      <div class="flex-shrink-0 h-32 w-full p-2 bg-white flex items-center justify-center">
-        <img :src="m.icon" alt="" class="h-full object-contain">
-      </div>
-      <div class="p-4 flex-1 flex flex-col justify-between">
-        <h3 class="font-semibold text-lg flex justify-between items-center">
-          <span>{{ m.name }}</span>
-          <span class="text-sm text-gray-500">{{ m.price }}</span>
-        </h3>
-        <p class="text-sm text-gray-600 mt-2">{{ m.desc }}</p>
-      </div>
-    </article>
-  </div>
-</div>
-
-
-
-<div v-else class="p-5 rounded-2xl">
-  <h1 class="text-2xl font-bold mb-6 text-yellow-200 text-center">夜間菜單</h1>
-
-  <!-- 熟食 -->
-  <section class="mb-10">
-    <h3 class="text-xl font-semibold mb-4 text-yellow-300">熟食</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article
-        v-for="m in data.menuNight.hot"
-        :key="m.id"
-        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
-      >
-        <!-- 圖片區塊 -->
-        <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
-          <img :src="m.icon" alt="" class="h-full object-contain">
-        </div>
-        <!-- 文字區塊 -->
-        <div class="p-4 flex-1 flex flex-col justify-between">
-          <h4 class="font-semibold text-lg flex justify-between items-center text-yellow-100">
-            <span>{{ m.name }}</span>
-            <span class="text-sm text-gray-400">{{ m.price }}</span>
-          </h4>
-          <p class="text-sm mt-2 text-gray-300">{{ m.desc }}</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- 無酒精飲料 -->
-  <section class="mb-10">
-    <h3 class="text-xl font-semibold mb-4 text-yellow-300">無酒精飲料</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article
-        v-for="m in data.menuNight.soft"
-        :key="m.id"
-        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
-      >
-        <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
+    <!-- 主食 -->
+    <h2 class="text-xl font-semibold mb-4">主食</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <article v-for="m in data.menuDay.main" :key="m.id"
+               class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-b from-orange-50 via-white to-orange-100 border border-gray-200 flex flex-col">
+        <div class="flex-shrink-0 h-32 w-full p-2 bg-white flex items-center justify-center">
           <img :src="m.icon" alt="" class="h-full object-contain">
         </div>
         <div class="p-4 flex-1 flex flex-col justify-between">
-          <h4 class="font-semibold text-lg flex justify-between items-center text-yellow-100">
+          <h3 class="font-semibold text-lg flex justify-between items-center">
             <span>{{ m.name }}</span>
-            <span class="text-sm text-gray-400">{{ m.price }}</span>
-          </h4>
-          <p class="text-sm mt-2 text-gray-300">{{ m.desc }}</p>
+            <span class="text-sm text-gray-500">{{ m.price }}</span>
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">{{ m.desc }}</p>
         </div>
       </article>
     </div>
-  </section>
 
-  <!-- 調酒 -->
-  <section>
-    <h3 class="text-xl font-semibold mb-4 text-yellow-300">調酒</h3>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article
-        v-for="m in data.menuNight.alcohol"
-        :key="m.id"
-        class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
-      >
-        <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
+    <!-- 點心 -->
+    <h2 class="text-xl font-semibold mb-4">點心</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <article v-for="m in data.menuDay.dessert" :key="m.id"
+               class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-b from-pink-50 via-white to-pink-100 border border-gray-200 flex flex-col">
+        <div class="flex-shrink-0 h-32 w-full p-2 bg-white flex items-center justify-center">
           <img :src="m.icon" alt="" class="h-full object-contain">
         </div>
         <div class="p-4 flex-1 flex flex-col justify-between">
-          <h4 class="font-semibold text-lg flex justify-between items-center text-yellow-100">
+          <h3 class="font-semibold text-lg flex justify-between items-center">
             <span>{{ m.name }}</span>
-            <span class="text-sm text-gray-400">{{ m.price }}</span>
-          </h4>
-          <p class="text-sm mt-2 text-gray-300">{{ m.desc }}</p>
+            <span class="text-sm text-gray-500">{{ m.price }}</span>
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">{{ m.desc }}</p>
         </div>
       </article>
     </div>
-  </section>
-</div>
 
+    <!-- 飲品 -->
+    <h2 class="text-xl font-semibold mb-4">飲品</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article v-for="m in data.menuDay.drinks" :key="m.id"
+               class="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-b from-blue-50 via-white to-blue-100 border border-gray-200 flex flex-col">
+        <div class="flex-shrink-0 h-32 w-full p-2 bg-white flex items-center justify-center">
+          <img :src="m.icon" alt="" class="h-full object-contain">
+        </div>
+        <div class="p-4 flex-1 flex flex-col justify-between">
+          <h3 class="font-semibold text-lg flex justify-between items-center">
+            <span>{{ m.name }}</span>
+            <span class="text-sm text-gray-500">{{ m.price }}</span>
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">{{ m.desc }}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- 夜間菜單 -->
+  <div v-else class="p-5 rounded-2xl">
+    <h1 class="text-2xl font-bold mb-6 text-yellow-200 text-center">夜間菜單</h1>
+
+    <!-- 熟食 -->
+    <section class="mb-10">
+      <h3 class="text-xl font-semibold mb-4 text-yellow-300">熟食</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article
+          v-for="m in data.menuNight.hot"
+          :key="m.id"
+          class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
+        >
+          <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
+            <img :src="m.icon" alt="" class="h-full object-contain">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <h4 class="font-semibold text-lg flex justify-between items-center text-yellow-100">
+              <span>{{ m.name }}</span>
+              <span class="text-sm text-gray-400">{{ m.price }}</span>
+            </h4>
+            <p class="text-sm mt-2 text-gray-300">{{ m.desc }}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 無酒精飲料 -->
+    <section class="mb-10">
+      <h3 class="text-xl font-semibold mb-4 text-yellow-300">無酒精飲料</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article
+          v-for="m in data.menuNight.soft"
+          :key="m.id"
+          class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
+        >
+          <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
+            <img :src="m.icon" alt="" class="h-full object-contain">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <h4 class="font-semibold text-lg flex justify-between items-center text-yellow-100">
+              <span>{{ m.name }}</span>
+              <span class="text-sm text-gray-400">{{ m.price }}</span>
+            </h4>
+            <p class="text-sm mt-2 text-gray-300">{{ m.desc }}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 調酒 -->
+    <section>
+      <h3 class="text-xl font-semibold mb-4 text-yellow-300">調酒</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article
+          v-for="m in data.menuNight.alcohol"
+          :key="m.id"
+          class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 bg-[#272221] border border-[#413e3d] flex flex-col"
+        >
+          <div class="flex-shrink-0 h-32 w-full p-2 bg-[#272221] flex items-center justify-center">
+            <img :src="m.icon" alt="" class="h-full object-contain">
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <h4 class="font-semibold text-lg flex justify-between items-center text-yellow-100">
+              <span>{{ m.name }}</span>
+              <span class="text-sm text-gray-400">{{ m.price }}</span>
+            </h4>
+            <p class="text-sm mt-2 text-gray-300">{{ m.desc }}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- 額外圖片 -->
+  <div v-if="showExtraImage" class="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]">
+    <img src="./img/special.jpg" alt="額外圖片" class="rounded-xl shadow-lg max-w-[90%] max-h-[90%]">
+  </div>
+
+  <!-- 右下角浮動按鈕 -->
+  <button 
+    @click="showExtraImage = !showExtraImage"
+    class="fixed bottom-16 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border
+           bg-purple-500 text-white font-bold hover:bg-purple-600 transition transform hover:scale-110"
+    title="顯示/隱藏額外圖片"
+  >
+    特殊菜單
+  </button>
 
 </main>
-      `
-    };
+  `
+  };
+
 
   const Team = {
     props: ['data', 'darkMode'],
