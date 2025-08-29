@@ -120,7 +120,8 @@
     :class="darkMode
       ? 'bg-[#221e1d] text-white'
       : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white text-gray-700'"
-    class="sticky top-0 z-50 backdrop-blur border-b border-gray-200 dark:border-gray-700 transition-colors duration-500">
+    class="sticky top-0 z-50 backdrop-blur border-b border-gray-200 dark:border-gray-700 transition-colors duration-500"
+  >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <!-- LOGO -->
@@ -133,35 +134,61 @@
           <span class="text-lg sm:text-xl font-bold tracking-tight group-hover:text-orange-600 transition-colors">
             {{ siteName }}
           </span>
-        </router-link>  
+        </router-link>
 
-        <!-- Nav 靠右 -->
-        <nav class="flex items-center gap-6 text-sm font-medium ml-auto">
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium ml-auto">
           <router-link class="hover:text-orange-600" to="/menu">菜單</router-link>
           <router-link class="hover:text-orange-600" to="/team">團隊</router-link>
           <router-link class="hover:text-orange-600" to="/contact">聯絡資訊</router-link>
           <a href="https://xiang1224.github.io/floral-motif/#/" class="hover:text-orange-600">方花咖啡廳</a>
         </nav>
+
+        <!-- Hamburger Button (Mobile) -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen"
+                class="md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+          <span v-if="!mobileMenuOpen">☰</span>
+          <span v-else>☰</span>
+        </button>
       </div>
     </div>
+
+    <!-- Mobile Menu -->
+    <div
+      v-if="mobileMenuOpen"
+      class="md:hidden border-t border-gray-200 dark:border-gray-700"
+      :class="darkMode ? 'bg-[#221e1d]' : 'bg-gradient-to-r from-orange-100 via-orange-50 to-white'"
+    >
+      <div class="px-2 pt-2 pb-3 space-y-1 flex flex-col">
+        <router-link class="block px-3 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-gray-700" to="/menu">菜單</router-link>
+        <router-link class="block px-3 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-gray-700" to="/team">團隊</router-link>
+        <router-link class="block px-3 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-gray-700" to="/contact">聯絡資訊</router-link>
+        <a href="https://xiang1224.github.io/floral-motif/#/" class="block px-3 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-gray-700">方花咖啡廳</a>
+      </div>
+</div>
+
   </header>
 
-  <!-- 浮動切換按鈕 -->
-<button
-  @click="$emit('toggle-mode')"
-  :class="[
-    'fixed bottom-4 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border font-bold hover:scale-110 transition transform',
-    darkMode
-      ? 'bg-[#221e1d] border border-[#413e3d] text-white hover:bg-gray-800'
-      : 'bg-yellow-100 text-black hover:bg-yellow-300'
-  ]"
->
-  {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
-</button>
-
+  <!-- Dark/Light Toggle Button -->
+  <button
+    @click="$emit('toggle-mode')"
+    :class="[
+      'fixed bottom-4 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border font-bold hover:scale-110 transition transform',
+      darkMode
+        ? 'bg-[#221e1d] border border-[#413e3d] text-white hover:bg-gray-800'
+        : 'bg-yellow-100 text-black hover:bg-yellow-300'
+    ]"
+  >
+    {{ darkMode ? '☀️ 白天' : '🌙 夜間' }}
+  </button>
 </div>
   `,
-    props: ['siteName', 'darkMode']
+    props: ['siteName', 'darkMode'],
+    data() {
+      return {
+        mobileMenuOpen: false
+      };
+    }
   };
 
 
