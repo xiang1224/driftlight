@@ -149,12 +149,15 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative flex items-center h-16">
       
-      <!-- Logo (置中) -->
-      <router-link 
-        to="/" 
-        class="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 group"
+      <!-- Logo -->
+      <router-link
+        to="/"
+        class="flex items-center gap-2 group
+              md:relative md:left-0 md:transform-none   <!-- 電腦版靠左 -->
+              absolute left-1/2 transform -translate-x-1/2  <!-- 手機版置中 -->
+        "
       >
-        <img 
+        <img
           :src="darkMode ? './img/LOGO-DARK.png' : './img/LOGO-DAY.png'"
           alt="餐廳 Logo"
           class="h-12 rounded-2xl object-cover"
@@ -163,7 +166,6 @@
           {{ siteName }}
         </span>
       </router-link>
-
       <!-- Hamburger Button (手機右側) -->
       <button @click="mobileMenuOpen = !mobileMenuOpen"
               class="ml-auto md:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 z-10">
@@ -178,6 +180,7 @@
         <router-link class="hover:text-orange-600" to="/contact">聯絡資訊</router-link>
         <a href="https://xiang1224.github.io/floral-motif/#/" class="hover:text-orange-600">方花咖啡廳</a>
       </nav>
+      
     </div>
   </div>
 
@@ -196,7 +199,9 @@
       </div>
     </div>
   </transition>
+  
 </header>
+<button @click="$emit('toggle-mode')" :class="[ 'fixed bottom-4 right-4 z-[9999] px-4 py-2 rounded-full shadow-lg border font-bold hover:scale-110 transition transform', darkMode ? 'bg-[#221e1d] border border-[#413e3d] text-white hover:bg-gray-800' : 'bg-yellow-100 text-black hover:bg-yellow-300' ]" > {{ darkMode ? '☀️ 白天' : '🌙 夜間' }} </button>
   `,
     props: ['siteName', 'darkMode'],
     data() {
