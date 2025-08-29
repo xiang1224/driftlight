@@ -188,7 +188,8 @@
     <div>
       <h4 class="font-semibold mb-2">夥伴</h4>
       <p>本餐廳與 
-        <a href="https://xiang1224.github.io/floral-motif/#/" class="hover:text-orange-600">方花咖啡廳</a> 
+        <a href="https://xiang1224.github.io/floral-motif/#/" class="hover:text-orange-600">方花咖啡廳</a>、
+        <a href="https://xiang1224.github.io/familiar/index.html" class="hover:text-orange-600">醫護局</a> 
         合作，提供跨店優惠。
       </p>
       <p class="mt-2">© {{ year }} {{ chinesename }}. 版權所有。</p>
@@ -406,10 +407,21 @@
     </section>
   </div>
 
-  <!-- 額外圖片 -->
-  <div v-if="showExtraImage" class="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]">
-    <img src="./img/special.jpg" alt="額外圖片" class="rounded-xl shadow-lg max-w-[90%] max-h-[90%]">
+<div
+  v-if="showExtraImage"
+  class="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]"
+  @click="showExtraImage = false"
+>
+  <div class="text-center" @click.stop>
+    <img src="./img/special.jpg" alt="額外圖片"
+         class="rounded-xl shadow-lg max-w-[90%] max-h-[70%] mx-auto">
+    <p class="mt-4 text-white text-lg font-medium bg-black/60 px-4 py-2 rounded-lg inline-block">
+      本餐點僅接受提前預訂，費用將視當日食材及供應狀況浮動。
+    </p>
   </div>
+</div>
+
+
 
   <!-- 右下角浮動按鈕 -->
   <button 
